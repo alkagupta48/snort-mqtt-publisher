@@ -101,6 +101,10 @@ void getPayload(char** payload)
 		fgets(*payload, PAYLOAD_SIZE, snort_log);
 	}
 	fgets(*payload, PAYLOAD_SIZE, snort_log);
+	if (strstr(*payload, "[Priority: 1]") == NULL)
+		*payload = NULL;
+	else
+		fgets(*payload, PAYLOAD_SIZE, snort_log);
 	return;
 }
 
@@ -167,7 +171,6 @@ int init_connection()
 
 int main(int argc, char* argv[])
 {
-
 	snort_log = fopen("./dat/alert.ids", "r");
 
 	init_connection();
